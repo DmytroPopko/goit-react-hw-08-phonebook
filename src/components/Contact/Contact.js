@@ -3,14 +3,14 @@ import { deleteContact } from "redux/operations";
 import IconButton from '../../components/IconButton';
 import { ReactComponent as DelIcon } from '../../icons/delete.svg';
 
-export const Contact = ({ contact, onDeleteContact }) => {
+export const Contact = ({ contact }) => {
 
   const dispatch = useDispatch();
   const handleDelete = () => dispatch(deleteContact(contact.id));
 
   return (
     <div>
-      {contact.name}: {contact.phone}
+      {contact.name}: {contact.number}
       <IconButton
         className="IconButtonDelete"
         onClick={handleDelete}

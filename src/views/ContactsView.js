@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { nanoid } from '@reduxjs/toolkit';
 import Container from '../components/Container';
 import { SectionTitle } from '../components/SectionTitle';
 import { ContactForm } from '../components/ContactForm';
@@ -29,9 +28,8 @@ export default function ConcactsView(params) {
 
   const onAddContact = opt => {
     const newContact = {
-      id: nanoid(),
       name: opt.name,
-      phone: opt.number,
+      number: opt.phone,
     };
 
     const hasContact = contacts.find(option => option.name === newContact.name);

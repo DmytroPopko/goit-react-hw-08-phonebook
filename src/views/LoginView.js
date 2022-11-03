@@ -61,7 +61,7 @@ export default function LoginView() {
           />
         </label>
 
-        <button type="submit">Войти</button>
+        <button type="submit">Log In</button>
       </form>
     </div>
   );

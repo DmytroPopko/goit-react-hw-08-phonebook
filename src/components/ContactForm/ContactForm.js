@@ -22,7 +22,7 @@ export default function ContactForm({ onSubmit }) {
   };
 
   const reset = () => {
-    setOptions( {name: '', phone: ''} );
+    setOptions( {name: '', number: ''} );
   };
 
   return (
@@ -48,7 +48,7 @@ export default function ContactForm({ onSubmit }) {
           name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-          value={options.phone}
+          value={options.number}
           onChange={handleChange}
         />
         <AddContact />

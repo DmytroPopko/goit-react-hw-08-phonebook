@@ -1,10 +1,7 @@
 import { useEffect, lazy } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-// import Container from './components/Container';
-// import AppBar from './components/AppBar';
 import { PrivateRoute } from './components/PrivateRoute';
-// import PublicRoute from './components/PublicRoute';
 import { authOperations } from './redux/auth';
 import { useAuth } from 'hooks';
 import { Layout } from './components/Layout';
@@ -17,14 +14,11 @@ const ConcactsView = lazy(() => import('./views/ContactsView'));
 
 const App = () => {
   const dispatch = useDispatch();
-  // const isFetchingCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
   const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
-
-  // console.log(isRefreshing);
 
   return isRefreshing ? (
     <b>Refreshing user...</b>

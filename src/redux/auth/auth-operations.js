@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com/'; 
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com/';
 
 const token = {
   set(token) {
@@ -17,14 +17,13 @@ const token = {
  * body: { name, email, password }
  * После успешной регистрации добавляем токен в HTTP-заголовок
  */
-const register = createAsyncThunk('auth/register', async credentials => {
+const register = createAsyncThunk('auth/register', async (credentials, thunkAPI) => {
   try {
     const { data } = await axios.post('/users/signup', credentials);
     token.set(data.token);
-    console.log(data);
     return data;
   } catch (error) {
-    // TODO: Добавить обработку ошибки error.message
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -33,13 +32,13 @@ const register = createAsyncThunk('auth/register', async credentials => {
  * body: { email, password }
  * После успешного логина добавляем токен в HTTP-заголовок
  */
-const logIn = createAsyncThunk('auth/login', async credentials => {
+const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
   try {
     const { data } = await axios.post('/users/login', credentials);
     token.set(data.token);
     return data;
   } catch (error) {
-    // TODO: Добавить обработку ошибки error.message
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -48,12 +47,12 @@ const logIn = createAsyncThunk('auth/login', async credentials => {
  * headers: Authorization: Bearer token
  * После успешного логаута, удаляем токен из HTTP-заголовка
  */
-const logOut = createAsyncThunk('auth/logout', async () => {
+const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     token.unset();
   } catch (error) {
-    // TODO: Добавить обработку ошибки error.message
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 /*
@@ -77,13 +76,14 @@ const fetchCurrentUser = createAsyncThunk(
     }
 
     token.set(persistedToken);
+
     try {
       const { data } = await axios.get('/users/current');
       return data;
     } catch (error) {
-      // TODO: Добавить обработку ошибки error.message
+      return thunkAPI.rejectWithValue(error.message);
     }
-  },
+  }
 );
 
 const operations = {
